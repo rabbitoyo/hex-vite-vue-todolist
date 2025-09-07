@@ -1,7 +1,7 @@
 <script setup>
 import { login } from '../utils/api'
 import { ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
@@ -41,7 +41,7 @@ const handleLogin = async () => {
                 />
             </div>
             <div>
-                <form class="formControls" action="index.html">
+                <form class="formControls" @submit.prevent="handleRegister">
                     <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
                     <label class="formControls_label" for="email">Email</label>
                     <input

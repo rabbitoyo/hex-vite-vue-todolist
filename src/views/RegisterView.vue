@@ -1,7 +1,7 @@
 <script setup>
 import { register } from '../utils/api'
 import { ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
@@ -65,22 +65,22 @@ const handleRegister = async () => {
                         v-model="nickname"
                         placeholder="請輸入您的暱稱"
                     />
-                    <label class="formControls_label" for="pwd">密碼</label>
+                    <label class="formControls_label" for="password">密碼</label>
                     <input
                         class="formControls_input"
                         type="password"
                         name="pwd"
-                        id="pwd"
+                        id="password"
                         placeholder="請輸入密碼"
                         v-model="password"
                         required
                     />
-                    <label class="formControls_label" for="pwd">再次輸入密碼</label>
+                    <label class="formControls_label" for="confirmPassword">再次輸入密碼</label>
                     <input
                         class="formControls_input"
                         type="password"
                         name="pwd"
-                        id="pwd"
+                        id="confirmPassword"
                         placeholder="請再次輸入密碼"
                         v-model="confirmPassword"
                         required
