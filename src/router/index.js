@@ -26,19 +26,16 @@ const router = createRouter({
     ],
 })
 
-router.beforeEach((to, from, next) => {
-    const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)vue3-todolist-token\s*=\s*([^;]*).*$)|^.*$/,
-        '$1',
-    )
-
-    if (to.meta.requiresAuth && !token) {
-        next('/login') // 未登入導向 login
-    } else if ((to.path === '/login' || to.path === '/register') && token) {
-        next('/todolist') // 已登入直接到至 todoList
-    } else {
-        next() // 通過驗證
+router.beforeEach(async (to, from, next) => {
+    const token = document.cookie.replace(/(?:^|.*;\s*)todolistToken\s*=\s*([^;]*).*$/i, '$1')
+    if (!token) {
+        if (to.path === '/' || to.path === '/register') {
+            return next()
+        } else {
+            return next('/')
+        }
     }
+    next()
 })
 
 export default router

@@ -33,3 +33,8 @@ export const login = async (email, password) => {
         password,
     })
 }
+
+// 登出
+export const logout = async () => {
+    return api.post('/users/sign_out')
+}

@@ -1,7 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { logout } from '../utils/api'
+import { ref, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
+
 import TodoForm from '@/components/TodoForm.vue'
 import TodoList from '@/components/TodoList.vue'
+
+const router = useRouter()
 
 const todos = ref([
     { id: 1, content: '把冰箱發霉的檸檬拿去丟', status: false },
@@ -26,6 +31,29 @@ const updateTodoStatus = ({ id, status }) => {
 const removeTodo = (id) => {
     todos.value = todos.value.filter((t) => t.id !== id)
 }
+
+const handleLogout = async () => {
+    try {
+        // call logout api
+        await logout()
+        alert('登出成功')
+
+        // 清掉前端 cookie
+        document.cookie = 'vue3-todolist-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+        document.cookie =
+            'vue3-todolist-token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=localhost'
+
+        // 等 cookie 更新完成再跳轉
+        await nextTick()
+
+        router.push('/login')
+        // 跳轉登入頁
+        router.push('/login')
+    } catch (error) {
+        alert('登出失敗')
+        console.error(error)
+    }
+}
 </script>
 
 <template>
@@ -36,7 +64,9 @@ const removeTodo = (id) => {
                 <li class="todo_sm">
                     <a href="#"><span>王小明的代辦</span></a>
                 </li>
-                <li><a href="#loginPage">登出</a></li>
+                <li>
+                    <a href="#loginPage" @click.prevent="handleLogout">登出</a>
+                </li>
             </ul>
         </nav>
         <div class="conatiner todoListPage vhContainer">
