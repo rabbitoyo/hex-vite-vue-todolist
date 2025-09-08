@@ -4,17 +4,12 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            path: '/',
-            redirect: '/login',
-        },
-        {
             path: '/todolist',
             name: 'todolist',
             component: () => import('../views/TodoListView.vue'),
-            meta: { requiresAuth: true },
         },
         {
-            path: '/login',
+            path: '/',
             name: 'login',
             component: () => import('../views/LoginView.vue'),
         },
